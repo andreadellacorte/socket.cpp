@@ -45,3 +45,6 @@ libsocket.cpp.so*
 *.tar.bz2
 *.zip
 *.7z
+
+# Distributable
+dist/*

@@ -9,18 +9,19 @@ int main(int argc, char** argv)
 {
 
   // initialize default port number and max connection cout
-  int     port    = 12002;
-  string  address = "127.0.0.1";
+  int     port;
+  string  address;
 
   // check if there are any passed arguments
   if(argc == 3)
   {
-    // initialize string stream from argument
-    std::istringstream arg_stream(argv[1]);
+    // bind arguments stream to address int variable if valid
+    address = argv[1];
 
-    // bind arguments stream to port int variable if valid
-    if ( !(arg_stream >> port) )
-      std::cerr << "Invalid number " << argv[1] << '\n';
+    port = std::stoi(argv[2]);
+  } else {
+    std::cerr << "Usage: client <address> <port>\n";
+    return 0;
   }
 
   // create server instance with specified port number

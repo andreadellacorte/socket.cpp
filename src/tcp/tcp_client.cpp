@@ -43,7 +43,7 @@ namespace tcp{
     // Connect to host node
     connect( socket_fd, (struct sockaddr *)&host_address, sizeof(host_address) );
 
-    // spawn a new proceess to recieve messages
+    // spawn a new proceess to receive messages
     if ((_childpid = fork()) == 0)
     {
       // wait for messages from host node

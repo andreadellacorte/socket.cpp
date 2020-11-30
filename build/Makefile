@@ -30,15 +30,16 @@ LDFLAGS  = -shared -fpic
 
 default: all
 
-all: $(TARGET) examples
+all: clean examples
 
 $(TARGET): $(OBJ_FILES)
 	@mkdir -p $(LIB_DIST_DIR)
 	$(CXX) $(CXXFLAGS) $(SRC_FILES) -o $(LIB_DIST_DIR)/$(TARGET) $(LDFLAGS)
 
 examples:
-	$(CXX) $(CXXFLAGS) $(SRC_FILES) $(EXAMPLES_DIR)/demo_tcp_server.cpp -o $(LIB_DIST_DIR)/demo_tcp_server.out
-	$(CXX) $(CXXFLAGS) $(SRC_FILES) $(EXAMPLES_DIR)/demo_tcp_client.cpp -o $(LIB_DIST_DIR)/demo_tcp_client.out
+	$(CXX) $(CXXFLAGS) $(SRC_FILES) $(EXAMPLES_DIR)/demo_tcp_server.cpp -o $(LIB_DIST_DIR)/server
+	$(CXX) $(CXXFLAGS) $(SRC_FILES) $(EXAMPLES_DIR)/demo_tcp_client.cpp -o $(LIB_DIST_DIR)/client
+	@cp $(EXAMPLES_DIR)/run.sh $(LIB_DIST_DIR)
 
 headers:
 	@mkdir -p $(LIB_DIST_DIR)/include
@@ -59,6 +60,7 @@ clean:
 	@rm --recursive --force $(LIB_DIST_DIR)/$(TARGET)
 	@rm --recursive --force $(LIB_DIST_DIR)/include
 	@rm --recursive --force $(LIB_DIST_DIR)/examples
-	@rm --recursive --force $(LIB_DIST_DIR)/demo_tcp_server.out
-	@rm --recursive --force $(LIB_DIST_DIR)/demo_tcp_client.out
+	@rm --recursive --force $(LIB_DIST_DIR)/run.sh
+	@rm --recursive --force $(LIB_DIST_DIR)/server
+	@rm --recursive --force $(LIB_DIST_DIR)/client
 	@rm --recursive --force $(LIB_DIST_DIR)/*.tar*

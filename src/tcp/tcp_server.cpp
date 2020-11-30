@@ -89,7 +89,6 @@ int server :: Listen (){
         _message[_message_length] = 0;
         string msg_str(_message);
 
-
         // send back the received message [ For testing purposes]
         sendto(_client_socket_fd,_message,_message_length,0,(struct sockaddr *)&_client_address,sizeof(_client_address));
 

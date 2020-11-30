@@ -24,6 +24,10 @@ int main(int argc, char** argv)
     // bind arguments stream to port int variable if valid
     if ( !(arg_stream >> port) )
       std::cerr << "Invalid number " << argv[1] << '\n';
+  } else
+  {
+    std::cerr << "Usage: server <port>\n";
+    return 0;
   }
 
   // create server instance with specified port number
@@ -36,7 +40,7 @@ int main(int argc, char** argv)
   int result = server.Listen();
 
   if(result != 0)
-    cout << "Faild to start server !" << std::endl;
+    cout << "Failed to start server !" << std::endl;
 
   return 0;
 }
