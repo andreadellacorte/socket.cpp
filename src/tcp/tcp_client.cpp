@@ -43,7 +43,7 @@ namespace tcp{
     // Connect to host node
     connect( socket_fd, (struct sockaddr *)&host_address, sizeof(host_address) );
 
-    // spawn a new proceess to receive messages
+    // spawn a new process to receive messages
     if ((_childpid = fork()) == 0)
     {
       // wait for messages from host node
@@ -84,9 +84,19 @@ namespace tcp{
     try{
       // send the message to host's open socket
       sendto( socket_fd, message.c_str(), strlen(message.c_str()), 0, (struct sockaddr *)&host_address,sizeof(host_address));
-    }
-    catch(int exp){
 
+      cout << "Message sent" << std::endl;
     }
+    catch(int exp){}
+  }
+
+  // ---------------------------------------------------------------------------------------------
+  // Summary      : Send message to currently connected host
+  // Pre-Condition: client must has an open connection with host
+  // ---------------------------------------------------------------------------------------------
+  void client :: Stop()
+  {
+    // close host connection socket
+    terminate_connection_flag = 1;
   }
 }

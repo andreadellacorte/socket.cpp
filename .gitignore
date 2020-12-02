@@ -48,3 +48,7 @@ libsocket.cpp.so*
 
 # Distributable
 dist/*
+
+# Windows
+ClientWindows/Debug
+.vs

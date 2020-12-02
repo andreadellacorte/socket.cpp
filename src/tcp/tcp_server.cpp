@@ -45,14 +45,14 @@ int server :: Listen (){
   if ( listen_result != 0 || bind_result != 0)
     return -1;
   else
-    cout << "Start listening at port " << _port << std::endl; // For testing purposes
+    cout << "Server listening at port: " << _port << std::endl; // For testing purposes
 
   // forever loop for accepting connections
   while(1)
   {
     if(_stop_server_flag)
     {
-      cout << "Server is stopped !";
+      cout << "Server stopped !";
       _stop_server_flag = 0;
       break;
     }
@@ -65,7 +65,7 @@ int server :: Listen (){
     if(_client_socket_fd == -1)
       continue;
 
-    cout << "Connection accepted - " << _client_socket_fd << std::endl;
+    cout << "Connection accepted from " << inet_ntoa(_client_address.sin_addr) << std::endl;
     // spawn a new proceess to recieve messages
     if ((_childpid = fork()) == 0)
     {
@@ -81,16 +81,13 @@ int server :: Listen (){
         if(_message_length <= 0)
         {
           close(_client_socket_fd);
-          cout << "Connection lost - " << _client_socket_fd << std::endl;
+          //cout << "Connection lost - " << _client_socket_fd << std::endl;
           break;
         }
 
         // put trailing characters
         _message[_message_length] = 0;
         string msg_str(_message);
-
-        // send back the received message [ For testing purposes]
-        sendto(_client_socket_fd,_message,_message_length,0,(struct sockaddr *)&_client_address,sizeof(_client_address));
 
         // execute OnMessage function if available
         if ( _on_msg_fn_ptr  != NULL)

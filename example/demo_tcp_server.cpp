@@ -5,6 +5,24 @@
 using std::string;
 using std::cout;
 
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h> /* For strncpy */
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <arpa/inet.h>
+
+#include <cstring>
+#include <iostream>
+
 void print(Node *nd, string msg)
 {
   cout<< nd->ip <<" : " << msg << std::endl;
@@ -13,7 +31,7 @@ void print(Node *nd, string msg)
 int main(int argc, char** argv)
 {
   //initialize default port number and max connection cout
-  int port = 12002;
+  int port;
 
   // check if there are any passed arguments
   if(argc > 1)
@@ -23,10 +41,11 @@ int main(int argc, char** argv)
 
     // bind arguments stream to port int variable if valid
     if ( !(arg_stream >> port) )
-      std::cerr << "Invalid number " << argv[1] << '\n';
-  } else
-  {
-    std::cerr << "Usage: server <port>\n";
+    {
+        std::cerr << "Invalid number " << argv[1] << std::endl;
+    }
+  } else {
+    cout << "Usage: server <port>" << std::endl;
     return 0;
   }
 

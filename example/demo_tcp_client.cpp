@@ -5,6 +5,8 @@
 
 using std::string;
 
+#define DEFAULT_MESSAGE "Hi! - from client"
+
 int main(int argc, char** argv)
 {
 
@@ -20,7 +22,7 @@ int main(int argc, char** argv)
 
     port = std::stoi(argv[2]);
   } else {
-    std::cerr << "Usage: client <address> <port>\n";
+    cout << "Usage: client <address> <port>\n";
     return 0;
   }
 
@@ -31,7 +33,10 @@ int main(int argc, char** argv)
   client.Connect();
 
   // send message to host
-  client.Send("Hi! - from client");
+  client.Send(DEFAULT_MESSAGE);
+
+  // send message to host
+  client.Stop();
 
   return 0;
 }
